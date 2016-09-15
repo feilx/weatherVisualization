@@ -1,0 +1,325 @@
+<html>
+  <head>
+                <meta charset='utf-8'>
+                <style type='text/css'>
+                body {
+                margin: 0;
+                }
+                #main {
+                height: 100%;
+                }
+                </style>
+                </head>
+                <body>
+                <div id='main'></div>
+                <script src='http://echarts.baidu.com/build/dist/echarts.js'></script>
+                <script type='text/javascript' src='http://api.map.baidu.com/api?v=2.0&ak=q9U1lWgCK1aBGVC1DVWrgWa7'></script>
+                <script src='http://echarts.baidu.com/doc/asset/js/jquery.min.js'></script>
+                <script>
+
+                (function () {
+                require.config({
+                paths: {
+                echarts:'http://echarts.baidu.com/doc/example/www/js'
+                },
+                packages: [
+                {
+                name: 'BMap',
+                location: 'http://lchiffon.github.io/reveal_slidify/echarts/require',
+                main: 'main'
+                }
+                ]
+                });
+
+                require(
+                [
+                'echarts',
+                'BMap',
+                'echarts/chart/map'
+                ],
+                function (echarts, BMapExtension) {
+
+                var BMapExt = new BMapExtension($('#main')[0], BMap, echarts,{
+                enableMapClick: false
+                });
+                var map = BMapExt.getMap();
+                var container = BMapExt.getEchartsContainer();
+
+                var startPoint = {
+                x: 104.114129,
+                y: 37.550339
+                };
+                var point = new BMap.Point(startPoint.x, startPoint.y);
+                map.centerAndZoom(point, 5);
+                map.enableScrollWheelZoom(true);
+                map.setMapStyle({
+    styleJson: [
+    {
+    'featureType': 'water',
+    'elementType': 'all',
+    'stylers': {
+    'color': '#044161'
+    }
+    },
+    {
+    'featureType': 'land',
+    'elementType': 'all',
+    'stylers': {
+    'color': '#004981'
+    }
+    },
+    {
+    'featureType': 'boundary',
+    'elementType': 'geometry',
+    'stylers': {
+    'color': '#064f85'
+    }
+    },
+    {
+    'featureType': 'railway',
+    'elementType': 'all',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'highway',
+    'elementType': 'geometry',
+    'stylers': {
+    'color': '#004981'
+    }
+    },
+    {
+    'featureType': 'highway',
+    'elementType': 'geometry.fill',
+    'stylers': {
+    'color': '#005b96',
+    'lightness': 1
+    }
+    },
+    {
+    'featureType': 'highway',
+    'elementType': 'labels',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'arterial',
+    'elementType': 'geometry',
+    'stylers': {
+    'color': '#004981'
+    }
+    },
+    {
+    'featureType': 'arterial',
+    'elementType': 'geometry.fill',
+    'stylers': {
+    'color': '#00508b'
+    }
+    },
+    {
+    'featureType': 'poi',
+    'elementType': 'all',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'green',
+    'elementType': 'all',
+    'stylers': {
+    'color': '#056197',
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'subway',
+    'elementType': 'all',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'manmade',
+    'elementType': 'all',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'local',
+    'elementType': 'all',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'arterial',
+    'elementType': 'labels',
+    'stylers': {
+    'visibility': 'off'
+    }
+    },
+    {
+    'featureType': 'boundary',
+    'elementType': 'geometry.fill',
+    'stylers': {
+    'color': '#029fd4'
+    }
+    },
+    {
+    'featureType': 'building',
+    'elementType': 'all',
+    'stylers': {
+    'color': '#1a5787'
+    }
+    },
+    {
+    'featureType': 'label',
+    'elementType': 'all',
+    'stylers': {
+    'visibility': 'off'
+    }
+    }
+    ]
+  });
+
+
+optionID_20160914155622_410162 = {
+  color: ['gold','aqua','lime'],
+  title : {
+    text: '全国主要城市天气',
+    subtext: '',
+    x:'center',
+    textStyle : {
+      color: '#fff'
+    }
+  },
+  tooltip : {
+    show: true,
+    trigger: 'item',
+    formatter: function (v) {
+               if(v[2].tooltipValue!=null){
+               return v[2].tooltipValue;
+               }else{
+               return v[1];
+               }
+  }},
+  toolbox: {
+    show : true,
+    orient : 'vertical',
+    x: 'right',
+    y: 'center',
+    feature : {
+      mark : {show: true},
+      dataView : {show: true, readOnly: false},
+      restore : {show: true},
+      saveAsImage : {show: true}
+    }
+  },
+  series : [
+    {
+      type:'map',
+      mapType: 'none',
+      data:[]
+      
+      ,markPoint : {
+        symbol:'emptyCircle',
+      symbolSize :20,
+      effect : {
+        show: true,
+        type: 'bounce',
+        shadowBlur : 0
+      },
+      itemStyle:{
+      normal:{
+        label:{show:false},
+        color:function(param){
+    return(param.data.value.colorValue);
+  }
+      },
+      emphasis: {
+        label:{show:false}
+      }
+      },
+      data : [{name:'太原',value:{colorValue:'orange',tooltipValue:'太原<br>__________<br>晴<br>28/12℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/sunny.png'},
+{name:'呼和浩特',value:{colorValue:'aqua',tooltipValue:'呼和浩特<br>__________<br>多云转晴<br>23/11℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'沈阳',value:{colorValue:'yellow',tooltipValue:'沈阳<br>__________<br>晴转多云<br>27/16℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/sunny.png'},
+{name:'长春',value:{colorValue:'orange',tooltipValue:'长春<br>__________<br>多云转小到中雨<br>24/16℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'上海',value:{colorValue:'aqua',tooltipValue:'上海<br>__________<br>中雨转小雨<br>24/22℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'南京',value:{colorValue:'lime',tooltipValue:'南京<br>__________<br>多云转阵雨<br>28/22℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'杭州',value:{colorValue:'lime',tooltipValue:'杭州<br>__________<br>阵雨<br>25/21℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'合肥',value:{colorValue:'yellow',tooltipValue:'合肥<br>__________<br>多云转阴<br>30/22℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'福州',value:{colorValue:'#ff3333',tooltipValue:'福州<br>__________<br>小雨转大雨<br>28/25℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'南昌',value:{colorValue:'#ff3333',tooltipValue:'南昌<br>__________<br>晴转多云<br>30/24℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/sunny.png'},
+{name:'济南',value:{colorValue:'orange',tooltipValue:'济南<br>__________<br>晴<br>30/20℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/sunny.png'},
+{name:'郑州',value:{colorValue:'orange',tooltipValue:'郑州<br>__________<br>多云<br>30/20℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'武汉',value:{colorValue:'lime',tooltipValue:'武汉<br>__________<br>多云<br>31/21℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'长沙',value:{colorValue:'aqua',tooltipValue:'长沙<br>__________<br>多云<br>31/24℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'广州',value:{colorValue:'#ff3333',tooltipValue:'广州<br>__________<br>多云<br>35/26℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'深圳',value:{colorValue:'#ff3333',tooltipValue:'深圳<br>__________<br>多云转阵雨<br>33/26℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'南宁城区',value:{colorValue:'aqua',tooltipValue:'南宁城区<br>__________<br>晴<br>35/25℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/sunny.png'},
+{name:'中沙',value:{colorValue:'orange',tooltipValue:'中沙<br>__________<br>多云<br>32/28℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'海口',value:{colorValue:'aqua',tooltipValue:'海口<br>__________<br>多云<br>33/27℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'重庆',value:{colorValue:'lime',tooltipValue:'重庆<br>__________<br>阴转阵雨<br>29/22℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'成都',value:{colorValue:'yellow',tooltipValue:'成都<br>__________<br>中雨转小雨<br>21/18℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'贵阳',value:{colorValue:'yellow',tooltipValue:'贵阳<br>__________<br>多云转阴<br>25/17℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'昆明',value:{colorValue:'#ff3333',tooltipValue:'昆明<br>__________<br>多云<br>25/15℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'拉萨',value:{colorValue:'yellow',tooltipValue:'拉萨<br>__________<br>阵雨<br>21/9℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'西安',value:{colorValue:'lime',tooltipValue:'西安<br>__________<br>阴转小雨<br>27/18℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'兰州',value:{colorValue:'orange',tooltipValue:'兰州<br>__________<br>多云转晴<br>24/12℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/cloudy.png'},
+{name:'西宁',value:{colorValue:'#ff3333',tooltipValue:'西宁<br>__________<br>阵雨转多云<br>22/7℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'银川',value:{colorValue:'orange',tooltipValue:'银川<br>__________<br>晴<br>26/14℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/sunny.png'},
+{name:'乌鲁木齐',value:{colorValue:'orange',tooltipValue:'乌鲁木齐<br>__________<br>阵雨转晴<br>22/13℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'},
+{name:'台北',value:{colorValue:'lime',tooltipValue:'台北<br>__________<br>中雨<br>29/26℃'},symbol:'image://https://raw.githubusercontent.com/feilx/weatherVisualization/master/dic/rainy.png'}
+      ]},
+      geoCoord:{'太原': [112.55706,37.87689],
+'呼和浩特': [111.75852,40.84746],
+'沈阳': [123.43897,41.81134],
+'长春': [125.33017,43.82178],
+'上海': [121.48024,31.23631],
+'南京': [118.80289,32.06473],
+'杭州': [120.16169,30.28006],
+'合肥': [117.23545,31.82687],
+'福州': [119.30294,26.08045],
+'南昌': [115.86453,28.68767],
+'济南': [117.00132,36.67163],
+'郑州': [113.63135,34.75349],
+'武汉': [114.31183,30.59843],
+'长沙': [112.94533,28.23397],
+'广州': [113.27079,23.13531],
+'深圳': [114.06611,22.54851],
+'南宁城区': [108.37335,22.82304],
+'中沙': [114.39999,15.91595],
+'海口': [110.20642,20.05006],
+'重庆': [106.55716,29.57100],
+'成都': [104.07122,30.57628],
+'贵阳': [106.63682,26.65275],
+'昆明': [102.83967,24.88595],
+'拉萨': [ 91.12103,29.65009],
+'西安': [108.94631,34.34744],
+'兰州': [103.84069,36.06731],
+'西宁': [101.78427,36.62348],
+'银川': [106.23898,38.49239],
+'乌鲁木齐': [ 87.62331,43.83281],
+'台北': [121.52487,25.04218]
+                  }
+                  
+
+    },
+    ]
+};
+
+
+var myChart = BMapExt.initECharts(container);
+window.onresize = myChart.onresize;
+BMapExt.setOption(optionID_20160914155622_410162);
+                }
+                );
+                })();
+</script>
+  </body>
+  </html>
+
+  
